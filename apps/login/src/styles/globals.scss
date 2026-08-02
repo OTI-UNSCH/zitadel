@@ -18,6 +18,44 @@ html {
   --dark-background-color: #000000;
 }
 
+.unsch-login-background {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 78%), rgb(255 255 255 / 82%)), url("/ui/v2/login/unsch/login.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.dark .unsch-login-background {
+  background-image:
+    linear-gradient(rgb(0 0 0 / 72%), rgb(0 0 0 / 78%)), url("/ui/v2/login/unsch/login.png");
+}
+
+.unsch-login-card {
+  box-shadow: 0 30px 80px rgb(0 0 0 / 22%);
+}
+
+.unsch-brand-panel {
+  background: linear-gradient(135deg, rgb(255 255 255 / 95%), rgb(246 247 249 / 92%));
+}
+
+.dark .unsch-brand-panel {
+  background: linear-gradient(135deg, rgb(20 20 22 / 96%), rgb(8 8 10 / 94%));
+}
+
+.unsch-brand-glow {
+  background:
+    radial-gradient(circle at 100% 0%, var(--theme-light-primary-500), transparent 36%),
+    radial-gradient(circle at 0% 100%, var(--theme-light-primary-500), transparent 42%);
+  opacity: 0.1;
+}
+
+.dark .unsch-brand-glow {
+  background:
+    radial-gradient(circle at 100% 0%, var(--theme-dark-primary-500), transparent 36%),
+    radial-gradient(circle at 0% 100%, var(--theme-dark-primary-500), transparent 42%);
+  opacity: 0.12;
+}
+
 .form-checkbox {
   position: relative;
 }
