@@ -15,6 +15,13 @@ export async function proxy(request: NextRequest) {
   // Add the original URL as a header to all requests
   const requestHeaders = new Headers(request.headers);
 
+  if (
+    process.env.REGISTRATION_ENABLED !== "true" &&
+    (request.nextUrl.pathname === "/register" || request.nextUrl.pathname.startsWith("/register/"))
+  ) {
+    return new NextResponse("Not Found", { status: 404 });
+  }
+
   // Extract "organization" search param from the URL and set it as a header if available
   const organization = request.nextUrl.searchParams.get("organization");
   if (organization) {

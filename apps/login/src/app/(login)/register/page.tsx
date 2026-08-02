@@ -14,6 +14,7 @@ import {
 } from "@/lib/zitadel";
 import { Organization } from "@zitadel/proto/zitadel/org/v2/org_pb";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 
@@ -23,6 +24,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page(props: { searchParams: Promise<Record<string | number | symbol, string | undefined>> }) {
+  if (process.env.REGISTRATION_ENABLED !== "true") {
+    notFound();
+  }
+
   const searchParams = await props.searchParams;
 
   let { firstname, lastname, email, organization, requestId } = searchParams;

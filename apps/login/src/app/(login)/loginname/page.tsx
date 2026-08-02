@@ -67,7 +67,7 @@ export default async function Page(props: { searchParams: Promise<Record<string 
             suffix={orgDomain}
             hideSuffix={branding?.hideLoginNameSuffix}
             submit={submit}
-            allowRegister={!!loginSettings?.allowRegister}
+            allowRegister={process.env.REGISTRATION_ENABLED === "true" && !!loginSettings?.allowRegister}
           ></UsernameForm>
         )}
 

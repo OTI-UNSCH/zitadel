@@ -11,8 +11,13 @@ import {
 } from "@/lib/zitadel";
 import { Organization } from "@zitadel/proto/zitadel/org/v2/org_pb";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 
 export default async function Page(props: { searchParams: Promise<Record<string | number | symbol, string | undefined>> }) {
+  if (process.env.REGISTRATION_ENABLED !== "true") {
+    notFound();
+  }
+
   const searchParams = await props.searchParams;
 
   let { firstname, lastname, email, organization, requestId } = searchParams;
