@@ -34,7 +34,7 @@ export function DynamicTheme({
   return (
     <ThemeWrapper branding={branding}>
       <div className="unsch-login-card relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-2xl lg:grid-cols-2">
-        <main className="flex min-h-[620px] flex-col justify-center bg-white/95 p-6 backdrop-blur-xl sm:p-10 dark:bg-neutral-950/95">
+        <main className="flex min-h-[620px] flex-col justify-center bg-white/75 p-6 backdrop-blur-xl sm:p-10 dark:bg-neutral-950/75">
           <div className="mx-auto w-full max-w-[400px] space-y-8 [&_h1]:text-left [&_h1]:text-3xl [&_h1]:font-black [&_p]:text-left">
             {actualChildren}
           </div>

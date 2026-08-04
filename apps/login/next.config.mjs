@@ -27,6 +27,12 @@ const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   output: process.env.NEXT_OUTPUT_MODE || undefined,
   reactStrictMode: true,
+  images: {
+    // La imagen del build standalone no incluye `sharp`, así que el
+    // optimizador de /_next/image falla en runtime. Los assets propios
+    // ya viven en public/, así que se sirven directo sin optimizar.
+    unoptimized: true,
+  },
   experimental: {
     // Add React 19 compatibility optimizations
     optimizePackageImports: ["@radix-ui/react-tooltip", "@heroicons/react"],
