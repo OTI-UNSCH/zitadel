@@ -17,12 +17,20 @@ const contactItems = [
 ];
 
 export function UnschBrandPanel() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   return (
     <aside className="unsch-brand-panel relative hidden flex-col justify-between overflow-hidden px-12 py-12 lg:flex">
       <div className="unsch-brand-glow pointer-events-none absolute inset-0" />
 
       <div className="relative flex items-center gap-3">
-        <Image src="/unsch/logo.png" alt="Logo de la UNSCH" width={64} height={64} className="object-contain" />
+        <Image
+          src={`${basePath}/unsch/logo.png`}
+          alt="Logo de la UNSCH"
+          width={64}
+          height={64}
+          className="object-contain"
+        />
         <div className="h-8 w-px bg-current opacity-15" />
         <div>
           <p className="text-primary-light-500 dark:text-primary-dark-500 text-xs font-black tracking-[0.35em] uppercase">
