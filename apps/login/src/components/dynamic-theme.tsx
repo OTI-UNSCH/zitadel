@@ -3,7 +3,7 @@
 import { BrandingSettings } from "@zitadel/proto/zitadel/settings/v2/branding_settings_pb";
 import React, { ReactNode } from "react";
 import { ThemeWrapper } from "./theme-wrapper";
-import { UnschBrandPanel } from "./unsch-brand-panel";
+import { UnschBrandHeader, UnschBrandPanel } from "./unsch-brand-panel";
 
 /**
  * DynamicTheme component handles layout switching between traditional top-to-bottom
@@ -33,10 +33,15 @@ export function DynamicTheme({
 
   return (
     <ThemeWrapper branding={branding}>
-      <div className="unsch-login-card relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-2xl bg-white/50 lg:grid-cols-2 dark:bg-neutral-950/50">
-        <main className="flex min-h-[620px] flex-col justify-center p-6 sm:p-10">
-          <div className="mx-auto w-full max-w-[400px] space-y-8 [&_h1]:text-left [&_h1]:text-3xl [&_h1]:font-black [&_p]:text-left">
-            {actualChildren}
+      <div className="unsch-login-card relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-xl bg-white/50 sm:rounded-2xl lg:grid-cols-2 dark:bg-neutral-950/50">
+        <main className="flex min-w-0 flex-col justify-center p-5 sm:p-8 lg:min-h-[560px] lg:p-10 xl:min-h-[620px]">
+          <div className="mx-auto w-full max-w-[400px]">
+            {/* Kept outside the space-y container: `lg:hidden` removes its box
+                entirely, so no phantom gap is left above the title on desktop. */}
+            <UnschBrandHeader />
+            <div className="space-y-6 sm:space-y-8 [&_h1]:text-left [&_h1]:text-2xl [&_h1]:font-black sm:[&_h1]:text-3xl [&_p]:text-left">
+              {actualChildren}
+            </div>
           </div>
         </main>
         <UnschBrandPanel />

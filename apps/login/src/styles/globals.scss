@@ -31,7 +31,13 @@ html {
 }
 
 .unsch-login-card {
-  box-shadow: 0 30px 80px rgb(0 0 0 / 22%);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 18%);
+}
+
+@media (min-width: 640px) {
+  .unsch-login-card {
+    box-shadow: 0 30px 80px rgb(0 0 0 / 22%);
+  }
 }
 
 .unsch-brand-panel {

@@ -16,11 +16,38 @@ const contactItems = [
   },
 ];
 
+/**
+ * Compact brand bar shown below the `lg` breakpoint, where the side panel is
+ * hidden. Keeps the institutional identity present on phones and tablets.
+ */
+export function UnschBrandHeader() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+  return (
+    <div className="mb-6 flex items-center gap-3 sm:mb-8 lg:hidden">
+      <Image
+        src={`${basePath}/unsch/logo.png`}
+        alt="Logo de la UNSCH"
+        width={48}
+        height={48}
+        className="h-10 w-10 object-contain sm:h-12 sm:w-12"
+      />
+      <div className="h-7 w-px bg-current opacity-15" />
+      <div className="min-w-0">
+        <p className="text-primary-light-500 dark:text-primary-dark-500 text-[0.65rem] font-black tracking-[0.3em] uppercase">
+          UNSCH · OTI
+        </p>
+        <p className="truncate text-xs opacity-70">Plataforma Institucional</p>
+      </div>
+    </div>
+  );
+}
+
 export function UnschBrandPanel() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
-    <aside className="unsch-brand-panel relative hidden flex-col justify-between overflow-hidden px-12 py-12 lg:flex">
+    <aside className="unsch-brand-panel relative hidden flex-col justify-between gap-10 overflow-hidden px-8 py-10 lg:flex xl:px-12 xl:py-12">
       <div className="unsch-brand-glow pointer-events-none absolute inset-0" />
 
       <div className="relative flex items-center gap-3">
@@ -47,7 +74,7 @@ export function UnschBrandPanel() {
             Acceso institucional
           </p>
         </div>
-        <h2 className="text-4xl leading-[0.95] font-black tracking-tight lg:text-5xl">
+        <h2 className="text-4xl leading-[0.95] font-black tracking-tight xl:text-5xl">
           El conocimiento
           <br />
           <span className="text-primary-light-500 dark:text-primary-dark-500">sin fronteras</span>
