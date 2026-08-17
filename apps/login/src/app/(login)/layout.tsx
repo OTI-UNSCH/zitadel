@@ -1,4 +1,4 @@
-import "@/styles/globals.scss";
+import "@/styles/globals.css";
 
 import { BackgroundWrapper } from "@/components/background-wrapper";
 import { LanguageProvider } from "@/components/language-provider";
@@ -69,7 +69,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     completa, tarjeta centrada y controles flotando arriba a la
                     derecha. Se usa min-h-dvh (no h-screen) para que los pasos
                     largos del flujo —MFA, passkey— puedan hacer scroll. */}
-                <BackgroundWrapper className="unsch-login-background relative min-h-dvh w-full overflow-hidden">
+                <BackgroundWrapper className="relative min-h-dvh w-full overflow-hidden">
+                  {/* Fondo: réplica de login-background.tsx de la intranet —
+                      fotografía a cover más un velo, en lugar de un gradiente
+                      embebido en CSS. */}
+                  <div className="absolute inset-0 bg-[url('/ui/v2/login/unsch/login.png')] bg-cover bg-center" />
+                  <div className="absolute inset-0 bg-white/30 dark:bg-black/40" />
+
                   <div className="relative z-20 flex min-h-dvh w-full items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:py-16">
                     <div className="w-full max-w-5xl">{children}</div>
                   </div>

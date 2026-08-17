@@ -60,7 +60,7 @@ export function UnschBrandPanel() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
-    <div className="unsch-brand-panel relative hidden flex-col justify-between overflow-hidden px-8 py-10 lg:flex xl:px-12 xl:py-14">
+    <div className="relative hidden flex-col justify-between overflow-hidden bg-linear-to-br from-unsch-primary/8 via-unsch-bg to-unsch-primary/5 px-8 py-10 lg:flex xl:px-12 xl:py-14">
       {/* Capa decorativa: hairlines en los bordes, halos difuminados y esquinas. */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-linear-to-br from-unsch-fg/4 via-unsch-bg to-unsch-fg/3 dark:from-white/5 dark:via-unsch-bg dark:to-white/2" />

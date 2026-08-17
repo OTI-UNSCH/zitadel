@@ -33,7 +33,7 @@ export function DynamicTheme({
 
   return (
     <ThemeWrapper branding={branding}>
-      <div className="unsch-login-card relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-2xl lg:grid-cols-2">
+      <div className="relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-2xl lg:grid-cols-2">
         <main className="flex min-w-0 flex-col justify-center border-unsch-border/30 bg-unsch-bg p-4 backdrop-blur-xl sm:p-8 lg:min-h-[560px] lg:border-r xl:min-h-[620px]">
           <div className="mx-auto w-full max-w-[400px]">
             {/* Fuera del contenedor space-y: `lg:hidden` elimina su caja por

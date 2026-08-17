@@ -1,6 +1,46 @@
-// https://github.com/tailwindlabs/tailwindcss/discussions/16173
-@use "tailwindcss";
+@import "tailwindcss";
 @config "../../tailwind.config.mjs";
+
+/* ---------------------------------------------------------------------------
+ * Tokens espejo de la intranet (intranet-frontend/src/app/globals.css).
+ * Mismos hexadecimales, para que el usuario no perciba un salto de identidad
+ * al moverse entre la intranet y este login. Si allá cambia la paleta, este
+ * bloque debe actualizarse en paralelo.
+ *
+ * Los valores se registran LITERALES en @theme (no como var() hacia otro token):
+ * con una indirección Tailwind no puede computar el alfa y descarta en silencio
+ * los modificadores —bg-unsch-primary/8 saldría opaco—. Verificado sobre el CSS
+ * compilado: debe emitir color-mix(in oklab, var(--color-unsch-primary) 8%, ...).
+ * ------------------------------------------------------------------------- */
+@theme {
+  --color-unsch-bg: #ffffff;
+  --color-unsch-fg: #1a1a1a;
+  --color-unsch-card: #ffffff;
+  --color-unsch-primary: #7b1e3a;
+  --color-unsch-primary-fg: #ffffff;
+  --color-unsch-muted: #f2f2f2;
+  --color-unsch-muted-fg: #6b6b6b;
+  --color-unsch-border: #e5e5e5;
+  --color-unsch-destructive: #b00020;
+}
+
+/* El tema oscuro sobreescribe las MISMAS variables que emite @theme, así que
+ * las utilidades y sus color-mix() siguen la paleta sin declararse dos veces. */
+.dark {
+  --color-unsch-bg: #0f0f10;
+  --color-unsch-fg: #ffffff;
+  --color-unsch-card: #1e1e1e;
+  --color-unsch-primary: #a8324a;
+  --color-unsch-primary-fg: #ffffff;
+  --color-unsch-muted: #2b2b2b;
+  --color-unsch-muted-fg: #b3b3b3;
+  --color-unsch-border: #2f2f2f;
+  --color-unsch-destructive: #ff4d4f;
+}
+
+:root {
+  --unsch-radius: 0.625rem;
+}
 
 @layer base {
   h1,
@@ -19,66 +59,13 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
- * Tokens espejo de la intranet (intranet-frontend/src/app/globals.css).
- * Se replican con los MISMOS valores hexadecimales para que el usuario no
- * perciba salto de identidad al pasar de la intranet a este login.
- * Si la intranet cambia su paleta, este bloque debe actualizarse en paralelo.
- * ------------------------------------------------------------------------- */
-:root {
-  --unsch-radius: 0.625rem;
-  --unsch-background: #ffffff;
-  --unsch-foreground: #1a1a1a;
-  --unsch-card: #ffffff;
-  --unsch-primary: #7b1e3a;
-  --unsch-primary-foreground: #ffffff;
-  --unsch-muted: #f2f2f2;
-  --unsch-muted-foreground: #6b6b6b;
-  --unsch-border: #e5e5e5;
-  --unsch-destructive: #b00020;
-}
-
-.dark {
-  --unsch-background: #0f0f10;
-  --unsch-foreground: #ffffff;
-  --unsch-card: #1e1e1e;
-  --unsch-primary: #a8324a;
-  --unsch-primary-foreground: #ffffff;
-  --unsch-muted: #2b2b2b;
-  --unsch-muted-foreground: #b3b3b3;
-  --unsch-border: #2f2f2f;
-  --unsch-destructive: #ff4d4f;
-}
-
-/* La intranet deja ver la foto de fondo mucho más (bg-white/30 · bg-black/40)
- * que el velo del 78–82% que tenía este login. */
-.unsch-login-background {
-  background-image: linear-gradient(rgb(255 255 255 / 30%), rgb(255 255 255 / 30%)), url("/ui/v2/login/unsch/login.png");
-  background-position: center;
-  background-size: cover;
-}
-
-.dark .unsch-login-background {
-  background-image: linear-gradient(rgb(0 0 0 / 40%), rgb(0 0 0 / 40%)), url("/ui/v2/login/unsch/login.png");
-}
-
-/* La tarjeta de la intranet no lleva sombra: sólo recorte redondeado. */
-.unsch-login-card {
-  box-shadow: none;
-}
-
-.unsch-brand-panel {
-  background-image: linear-gradient(
-    to bottom right,
-    color-mix(in srgb, var(--unsch-primary) 8%, transparent),
-    var(--unsch-background),
-    color-mix(in srgb, var(--unsch-primary) 5%, transparent)
-  );
-}
-
-/* ---------------------------------------------------------------------------
- * Formulario: réplica de login-header/login-fields/login-actions de la intranet.
- * Se estiliza desde aquí (y no editando input.tsx / button.tsx, que son
- * compartidos con upstream) para que el rebase del submódulo no conflictúe.
+ * Capa de formulario: réplica de login-header / login-fields / login-actions.
+ *
+ * Vive aquí y no en className porque lo que estiliza es el árbol que renderizan
+ * input.tsx y button.tsx, componentes compartidos con upstream: editarlos
+ * conflictuaría en cada rebase del submódulo, y alcanzarlos con variantes
+ * arbitrarias exigiría selectores de atributo anidados —[&_button[type=submit]]—
+ * que Tailwind puede descartar en silencio, sin fallar el build.
  * ------------------------------------------------------------------------- */
 .unsch-form h1,
 .unsch-form .ztdl-h1 {
@@ -87,7 +74,7 @@ html {
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.025em;
-  color: var(--unsch-foreground);
+  color: var(--color-unsch-fg);
 }
 
 .unsch-form .ztdl-p {
@@ -95,7 +82,7 @@ html {
   font-size: clamp(0.625rem, 0.3rem + 0.5vw, 1.5rem);
   font-weight: 300;
   line-height: 1.625;
-  color: var(--unsch-muted-foreground);
+  color: var(--color-unsch-muted-fg);
 }
 
 /* Etiqueta del campo: mayúsculas espaciadas, como en login-fields.tsx */
@@ -106,39 +93,39 @@ html {
   letter-spacing: 0.2em;
   line-height: 1.2;
   text-transform: uppercase;
-  color: var(--unsch-muted-foreground);
+  color: var(--color-unsch-muted-fg);
 }
 
 .unsch-form input:not([type="checkbox"]):not([type="radio"]) {
   height: 2.75rem;
   padding: 0 0.875rem;
   border-radius: 0.75rem;
-  background-color: color-mix(in srgb, var(--unsch-card) 60%, transparent);
-  border-color: color-mix(in srgb, var(--unsch-border) 60%, transparent);
-  color: var(--unsch-foreground);
+  background-color: color-mix(in srgb, var(--color-unsch-card) 60%, transparent);
+  border-color: color-mix(in srgb, var(--color-unsch-border) 60%, transparent);
+  color: var(--color-unsch-fg);
   letter-spacing: 0.025em;
   transition: all 0.2s ease;
 }
 
 .unsch-form input:not([type="checkbox"]):not([type="radio"]):hover {
-  border-color: var(--unsch-border);
+  border-color: var(--color-unsch-border);
 }
 
 .unsch-form input:not([type="checkbox"]):not([type="radio"]):focus {
   border-color: transparent;
   outline: none;
-  box-shadow: 0 0 0 1px var(--unsch-primary);
+  box-shadow: 0 0 0 1px var(--color-unsch-primary);
 }
 
 .unsch-form input::placeholder {
   font-style: normal;
-  color: color-mix(in srgb, var(--unsch-muted-foreground) 50%, transparent);
+  color: color-mix(in srgb, var(--color-unsch-muted-fg) 50%, transparent);
 }
 
 /* Fila de acciones de Zitadel: [Volver] [spacer] [Enviar].
- * La intranet usa un botón principal a todo el ancho, así que la fila se
- * apila y el spacer se oculta. El selector :has() es la forma de alcanzarla
- * sin editar cada formulario de cada paso del flujo. */
+ * La intranet usa un botón principal a todo el ancho, así que la fila se apila
+ * y el spacer se oculta. :has() es la forma de alcanzarla sin editar cada
+ * formulario de cada paso del flujo. */
 .unsch-form div:has(> button[type="submit"]) {
   flex-direction: column-reverse;
   align-items: stretch;
@@ -162,13 +149,13 @@ html {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  background-color: var(--unsch-primary);
-  color: var(--unsch-primary-foreground);
+  background-color: var(--color-unsch-primary);
+  color: var(--color-unsch-primary-fg);
   transition: all 0.2s ease;
 }
 
 .unsch-form button[type="submit"]:hover:not(:disabled) {
-  background-color: color-mix(in srgb, var(--unsch-primary) 90%, transparent);
+  background-color: color-mix(in srgb, var(--color-unsch-primary) 90%, transparent);
   transform: scale(1.01);
 }
 
@@ -190,8 +177,8 @@ html {
   font-size: clamp(0.625rem, 0.3rem + 0.5vw, 1.5rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-color: color-mix(in srgb, var(--unsch-border) 60%, transparent);
-  color: var(--unsch-muted-foreground);
+  border-color: color-mix(in srgb, var(--color-unsch-border) 60%, transparent);
+  color: var(--color-unsch-muted-fg);
 }
 
 .form-checkbox {

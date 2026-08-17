@@ -55,21 +55,6 @@ export default {
         gray: colors.zinc,
         // Dynamic theme colors
         ...themeColors,
-        // Tokens espejo de la intranet (ver :root en styles/globals.scss).
-        // Se registran como colores reales —en vez de usar bg-[var(--x)]/50—
-        // para que los modificadores de opacidad generen color-mix() sin
-        // ambigüedad de tipo.
-        unsch: {
-          bg: "var(--unsch-background)",
-          fg: "var(--unsch-foreground)",
-          card: "var(--unsch-card)",
-          primary: "var(--unsch-primary)",
-          "primary-fg": "var(--unsch-primary-foreground)",
-          muted: "var(--unsch-muted)",
-          "muted-fg": "var(--unsch-muted-foreground)",
-          border: "var(--unsch-border)",
-          destructive: "var(--unsch-destructive)",
-        },
         // State colors
         state: {
           success: {
