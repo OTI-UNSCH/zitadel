@@ -43,7 +43,7 @@ export function DynamicTheme({
             {/* Píldora de login-header.tsx de la intranet. */}
             <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-unsch-primary/20 bg-unsch-primary/10 px-3 py-1 sm:mb-6">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-unsch-primary" />
-              <span className="text-[clamp(0.5625rem,0.4rem+0.35vw,1rem)] font-bold tracking-[0.25em] text-unsch-primary uppercase">
+              <span className="text-[clamp(0.5625rem,0.53rem+0.15vw,0.6875rem)] font-bold tracking-[0.25em] text-unsch-primary uppercase">
                 Plataforma Académica
               </span>
             </span>
@@ -52,7 +52,7 @@ export function DynamicTheme({
 
             {/* login-footer.tsx de la intranet. */}
             <div className="mt-4 border-t border-unsch-border/20 pt-2">
-              <p className="text-center text-[clamp(0.625rem,0.3rem+0.5vw,1.5rem)] text-unsch-muted-fg/40">
+              <p className="text-center text-[clamp(0.6875rem,0.65rem+0.15vw,0.75rem)] text-unsch-muted-fg/40">
                 ¿Problemas de acceso?{" "}
                 <a
                   href="mailto:software@unsch.edu.pe"
