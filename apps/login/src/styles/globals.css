@@ -186,23 +186,24 @@ html {
  * position: fixed en lugar de moverlo en el árbol de cada paso. */
 .unsch-form div:has(> button[type="submit"]) > button[type="button"] {
   position: fixed;
-  top: 0.5rem;
-  left: 0.5rem;
+  top: 1rem;
+  left: 1rem;
   z-index: 50;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   width: auto;
-  height: 2.25rem;
-  padding: 0 0.875rem;
-  border-radius: 0.75rem;
-  font-size: clamp(0.6875rem, 0.63rem + 0.2vw, 0.8125rem);
-  letter-spacing: 0.08em;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border-radius: 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  line-height: 1;
   border-color: color-mix(in srgb, var(--color-unsch-border) 50%, transparent);
   background-color: color-mix(in srgb, var(--color-unsch-bg) 70%, transparent);
   color: var(--color-unsch-fg);
-  backdrop-filter: blur(8px);
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 }
 
@@ -211,15 +212,25 @@ html {
   border-color: var(--color-unsch-border);
 }
 
-/* Flecha izquierda, para igualar el <ArrowLeft/> de la intranet. */
+/* Flecha izquierda, para igualar el <ArrowLeft/> de la intranet.
+ * Se usan las propiedades largas de mask y no el atajo: con el atajo, el
+ * separador de posición/tamaño (center / contain) combinado con un var() para
+ * la imagen no se aplicaba y el icono no llegaba a pintarse. */
 .unsch-form div:has(> button[type="submit"]) > button[type="button"]::before {
   content: "";
-  width: 0.75rem;
-  height: 0.75rem;
-  flex-shrink: 0;
+  display: block;
+  width: 0.8125rem;
+  height: 0.8125rem;
+  flex: 0 0 auto;
   background-color: currentColor;
-  -webkit-mask: var(--unsch-arrow-left) center / contain no-repeat;
-  mask: var(--unsch-arrow-left) center / contain no-repeat;
+  -webkit-mask-image: var(--unsch-arrow-left);
+  mask-image: var(--unsch-arrow-left);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .form-checkbox {
