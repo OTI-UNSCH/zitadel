@@ -65,13 +65,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               }
             >
               <LanguageProvider>
-                <BackgroundWrapper className="unsch-login-background relative flex min-h-dvh flex-col justify-center px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
-                  <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 sm:gap-4">
-                    <div className="flex flex-row items-center justify-end gap-2 sm:gap-3">
-                      <LanguageSwitcher languages={languages} />
-                      <ThemeSwitch />
-                    </div>
-                    <div>{children}</div>
+                {/* Estructura espejo de intranet LoginView: fondo a pantalla
+                    completa, tarjeta centrada y controles flotando arriba a la
+                    derecha. Se usa min-h-dvh (no h-screen) para que los pasos
+                    largos del flujo —MFA, passkey— puedan hacer scroll. */}
+                <BackgroundWrapper className="unsch-login-background relative min-h-dvh w-full overflow-hidden">
+                  <div className="relative z-20 flex min-h-dvh w-full items-center justify-center px-4 pt-20 pb-10 sm:px-6 sm:py-16">
+                    <div className="w-full max-w-5xl">{children}</div>
+                  </div>
+
+                  <div className="absolute top-4 right-4 z-50 flex flex-row items-center gap-2 sm:gap-3">
+                    <LanguageSwitcher languages={languages} />
+                    <ThemeSwitch />
                   </div>
                 </BackgroundWrapper>
               </LanguageProvider>

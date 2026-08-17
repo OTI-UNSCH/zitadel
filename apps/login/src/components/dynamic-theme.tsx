@@ -33,14 +33,34 @@ export function DynamicTheme({
 
   return (
     <ThemeWrapper branding={branding}>
-      <div className="unsch-login-card relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-xl bg-white/50 sm:rounded-2xl lg:grid-cols-2 dark:bg-neutral-950/50">
-        <main className="flex min-w-0 flex-col justify-center p-5 sm:p-8 lg:min-h-[560px] lg:p-10 xl:min-h-[620px]">
+      <div className="unsch-login-card relative mx-auto grid w-full max-w-5xl grid-cols-1 overflow-hidden rounded-2xl lg:grid-cols-2">
+        <main className="flex min-w-0 flex-col justify-center border-unsch-border/30 bg-unsch-bg p-4 backdrop-blur-xl sm:p-8 lg:min-h-[560px] lg:border-r xl:min-h-[620px]">
           <div className="mx-auto w-full max-w-[400px]">
-            {/* Kept outside the space-y container: `lg:hidden` removes its box
-                entirely, so no phantom gap is left above the title on desktop. */}
+            {/* Fuera del contenedor space-y: `lg:hidden` elimina su caja por
+                completo, así no deja un hueco fantasma sobre el título. */}
             <UnschBrandHeader />
-            <div className="space-y-6 sm:space-y-8 [&_h1]:text-left [&_h1]:text-2xl [&_h1]:font-black sm:[&_h1]:text-3xl [&_p]:text-left">
-              {actualChildren}
+
+            {/* Píldora de login-header.tsx de la intranet. */}
+            <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-unsch-primary/20 bg-unsch-primary/10 px-3 py-1 sm:mb-6">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-unsch-primary" />
+              <span className="text-[clamp(0.5625rem,0.4rem+0.35vw,1rem)] font-bold tracking-[0.25em] text-unsch-primary uppercase">
+                Plataforma Académica
+              </span>
+            </span>
+
+            <div className="unsch-form space-y-6 sm:space-y-8">{actualChildren}</div>
+
+            {/* login-footer.tsx de la intranet. */}
+            <div className="mt-4 border-t border-unsch-border/20 pt-2">
+              <p className="text-center text-[clamp(0.625rem,0.3rem+0.5vw,1.5rem)] text-unsch-muted-fg/40">
+                ¿Problemas de acceso?{" "}
+                <a
+                  href="mailto:software@unsch.edu.pe"
+                  className="font-semibold text-unsch-primary/70 transition-colors hover:text-unsch-primary"
+                >
+                  Contacta soporte
+                </a>
+              </p>
             </div>
           </div>
         </main>
