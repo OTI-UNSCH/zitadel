@@ -40,6 +40,9 @@
 
 :root {
   --unsch-radius: 0.625rem;
+
+  /* Flecha del botón "Volver", en línea para no pedir otro archivo al servidor. */
+  --unsch-arrow-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5'/%3E%3Cpath d='m12 19-7-7 7-7'/%3E%3C/svg%3E");
 }
 
 @layer base {
@@ -169,16 +172,46 @@ html {
   cursor: not-allowed;
 }
 
-/* Botón secundario ("Volver"): discreto, a todo el ancho bajo el principal. */
+/* "Volver": flotante arriba a la izquierda de la ventana, como en la intranet
+ * (allí es <Link href="/"> en absolute top-2 left-2). Aquí el botón lo renderiza
+ * cada formulario dentro de la fila de acciones, así que se saca del flujo con
+ * position: fixed en lugar de moverlo en el árbol de cada paso. */
 .unsch-form div:has(> button[type="submit"]) > button[type="button"] {
-  width: 100%;
-  height: 2.75rem;
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: auto;
+  height: 2.25rem;
+  padding: 0 0.875rem;
   border-radius: 0.75rem;
   font-size: clamp(0.625rem, 0.3rem + 0.5vw, 1.5rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-color: color-mix(in srgb, var(--color-unsch-border) 60%, transparent);
-  color: var(--color-unsch-muted-fg);
+  border-color: color-mix(in srgb, var(--color-unsch-border) 50%, transparent);
+  background-color: color-mix(in srgb, var(--color-unsch-bg) 70%, transparent);
+  color: var(--color-unsch-fg);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+}
+
+.unsch-form div:has(> button[type="submit"]) > button[type="button"]:hover {
+  background-color: var(--color-unsch-bg);
+  border-color: var(--color-unsch-border);
+}
+
+/* Flecha izquierda, para igualar el <ArrowLeft/> de la intranet. */
+.unsch-form div:has(> button[type="submit"]) > button[type="button"]::before {
+  content: "";
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: var(--unsch-arrow-left) center / contain no-repeat;
+  mask: var(--unsch-arrow-left) center / contain no-repeat;
 }
 
 .form-checkbox {

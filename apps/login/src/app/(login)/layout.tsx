@@ -23,7 +23,23 @@ const lato = Lato({
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("common");
-  return { title: t("title") };
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+  // Next sólo sirve el favicon implícito en la raíz del dominio. Como la app va
+  // montada bajo /ui/v2/login, el navegador pedía https://<dominio>/favicon.ico
+  // y recibía un 404, dejando la pestaña con el icono genérico. Hay que
+  // declararlos con el basePath por delante: Next no lo antepone en metadata.
+  return {
+    title: t("title"),
+    icons: {
+      icon: [
+        { url: `${basePath}/unsch/icon-32.png`, sizes: "32x32", type: "image/png" },
+        { url: `${basePath}/unsch/icon-192.png`, sizes: "192x192", type: "image/png" },
+        { url: `${basePath}/favicon.ico`, sizes: "any" },
+      ],
+      apple: [{ url: `${basePath}/unsch/apple-touch-icon.png`, sizes: "180x180", type: "image/png" }],
+    },
+  };
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
