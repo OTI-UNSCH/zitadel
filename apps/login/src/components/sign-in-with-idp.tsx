@@ -45,7 +45,7 @@ export function SignInWithIdp({
       [IdentityProviderType.GITHUB]: SignInWithGithub,
       [IdentityProviderType.GITHUB_ES]: SignInWithGithub,
       [IdentityProviderType.AZURE_AD]: SignInWithAzureAd,
-      [IdentityProviderType.GOOGLE]: (props) => <SignInWithGoogle {...props} e2e="google" />,
+      [IdentityProviderType.GOOGLE]: (props) => <SignInWithGoogle {...props} name={undefined} e2e="google" />,
       [IdentityProviderType.GITLAB]: SignInWithGitlab,
       [IdentityProviderType.GITLAB_SELF_HOSTED]: SignInWithGitlab,
       [IdentityProviderType.SAML]: SignInWithGeneric,

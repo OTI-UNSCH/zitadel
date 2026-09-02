@@ -38,7 +38,7 @@ export function DynamicTheme({
             backdrop-filter crea un bloque contenedor que atrapaba dentro de la
             tarjeta al botón "Atrás" (position: fixed). */}
         <main className="flex min-w-0 flex-col justify-center border-unsch-border/30 bg-unsch-bg p-4 sm:p-8 lg:min-h-[560px] lg:border-r xl:min-h-[620px]">
-          <div className="mx-auto w-full max-w-[400px]">
+          <div className="mx-auto w-full">
             {/* Fuera del contenedor space-y: `lg:hidden` elimina su caja por
                 completo, así no deja un hueco fantasma sobre el título. */}
             <UnschBrandHeader />

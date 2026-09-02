@@ -16,6 +16,7 @@ export type TextInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
   onChange?: (value: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (value: ChangeEvent<HTMLInputElement>) => void;
   roundness?: string; // Allow override via props
+  rightElement?: ReactNode;
 };
 
 const styles = (error: boolean, disabled: boolean, roundnessClasses: string = "rounded-md") =>
@@ -51,6 +52,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       onChange,
       onBlur,
       roundness,
+      rightElement,
       ...props
     },
     ref,
@@ -63,19 +65,27 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         <span className={`mb-1 leading-3 ${error ? "text-warn-light-500 dark:text-warn-dark-500" : ""}`}>
           {label} {required && "*"}
         </span>
-        <input
-          suppressHydrationWarning
-          ref={ref}
-          className={styles(!!error, !!disabled, actualRoundness)}
-          defaultValue={defaultValue}
-          required={required}
-          disabled={disabled}
-          placeholder={placeholder}
-          autoComplete={props.autoComplete ?? "off"}
-          onChange={(e) => onChange && onChange(e)}
-          onBlur={(e) => onBlur && onBlur(e)}
-          {...props}
-        />
+        <div className="relative flex">
+          <input
+            suppressHydrationWarning
+            ref={ref}
+            className={styles(!!error, !!disabled, actualRoundness)}
+            defaultValue={defaultValue}
+            required={required}
+            disabled={disabled}
+            placeholder={placeholder}
+            autoComplete={props.autoComplete ?? "off"}
+            onChange={(e) => onChange && onChange(e)}
+            onBlur={(e) => onBlur && onBlur(e)}
+            {...props}
+          />
+
+          {rightElement && (
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 z-30">
+              {rightElement}
+            </span>
+          )}
+        </div>
 
         {suffix && (
           <span

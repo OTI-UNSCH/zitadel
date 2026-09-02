@@ -14,6 +14,7 @@ import { Alert, AlertType } from "./alert";
 import { AutoSubmitForm } from "./auto-submit-form";
 import { BackButton } from "./back-button";
 import { Button, ButtonVariants } from "./button";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { TextInput } from "./input";
 import { PasswordComplexity } from "./password-complexity";
 import { Spinner } from "./spinner";
@@ -60,6 +61,8 @@ export function SetPasswordForm({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [samlData, setSamlData] = useState<{ url: string; fields: Record<string, string> } | null>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -222,7 +225,7 @@ export function SetPasswordForm({
           )}
           <div>
             <TextInput
-              type="password"
+              type={showPassword ? "text" : "password"}
               autoComplete="new-password"
               autoFocus={!codeRequired}
               required
@@ -232,11 +235,21 @@ export function SetPasswordForm({
               label={t("set.labels.newPassword")}
               error={errors.password?.message as string}
               data-testid="password-set-text-input"
+              rightElement={
+                <button
+                  type="button"
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+                </button>
+              }
             />
           </div>
           <div>
             <TextInput
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               required
               autoComplete="new-password"
               {...register("confirmPassword", {
@@ -245,6 +258,16 @@ export function SetPasswordForm({
               label={t("set.labels.confirmPassword")}
               error={errors.confirmPassword?.message as string}
               data-testid="password-set-confirm-text-input"
+              rightElement={
+                <button
+                  type="button"
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  tabIndex={-1}
+                >
+                  {showConfirmPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+                </button>
+              }
             />
           </div>
         </div>

@@ -149,7 +149,7 @@ export function UsernameForm({
           <Button
             data-testid="submit-button"
             type="submit"
-            className="self-end"
+            className="self-end cursor-pointer"
             variant={ButtonVariants.Primary}
             disabled={loading || !formState.isValid}
             onClick={handleSubmit((e) => submitLoginName(e, organization))}

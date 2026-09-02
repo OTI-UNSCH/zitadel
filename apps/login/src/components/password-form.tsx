@@ -13,6 +13,7 @@ import { Alert, AlertType } from "./alert";
 import { AutoSubmitForm } from "./auto-submit-form";
 import { BackButton } from "./back-button";
 import { Button, ButtonVariants } from "./button";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { TextInput } from "./input";
 import { Spinner } from "./spinner";
 import { Translated } from "./translated";
@@ -41,6 +42,7 @@ export function PasswordForm({ loginSettings, loginName, organization, defaultOr
   const [samlData, setSamlData] = useState<{ url: string; fields: Record<string, string> } | null>(null);
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -114,12 +116,27 @@ export function PasswordForm({ loginSettings, loginName, organization, defaultOr
       <form className="w-full">
         <div className={`${error && "animate-shake transform-gpu"}`}>
           <TextInput
-            type="password"
+            type={showPassword ? "text" : "password"}
             autoComplete="password"
             autoFocus
             {...register("password", { required: t("verify.required.password") })}
             label={t("verify.labels.password")}
             data-testid="password-text-input"
+            rightElement={
+              <button
+                type="button"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+                data-testid="password-toggle-visibility"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            }
           />
           {!loginSettings?.hidePasswordReset && (
             <button
